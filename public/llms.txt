@@ -1,0 +1,37 @@
+﻿# Muhammad Asad Iqbal
+
+> Full-Stack Developer based in Islamabad, Pakistan, specializing in
+> React Native mobile apps, Next.js web development, and WordPress sites
+> built with Bricks Builder and Elementor. Available worldwide.
+
+## About
+
+Asad started his career as an SEO Graduate Trainee at Allure, transitioned to
+Trainee Software Developer, and currently works as an Associate Software
+Engineer. His SEO background informs every web project — sites are built to
+rank as well as look good. He has shipped two mobile apps to both the Apple
+App Store and the Google Play Store.
+
+## Services
+
+- React Native + Expo mobile app development (iOS + Android)
+- App Store and Play Store submission and maintenance
+- Next.js / React / Node full-stack web development
+- WordPress development with Bricks Builder and Elementor
+- Technical SEO for React/Next.js sites (Core Web Vitals, schema, semantic HTML)
+
+## Notable Projects
+
+- BrothersFix — On-demand appliance repair mobile app, live on the App Store
+  and Play Store. Built with React Native, Expo, EAS Build, Firebase, OneSignal.
+- Quickworx — Two-sided services marketplace mobile app, live on the App Store
+  and Play Store. Built with React Native, Expo, TypeScript, Firebase, Stripe.
+- High-Performance Bricks Build — Custom WordPress site with Core Web Vitals in
+  the green (LCP < 1.5s, CLS < 0.05) and Lighthouse 95+.
+
+## Contact
+
+- Email: masadiqbal385@gmail.com
+- LinkedIn: https://www.linkedin.com/in/muhammad-asad-iqbal-515ab8247/
+- Location: Islamabad, Pakistan (working with clients worldwide)
+

@@ -1,0 +1,37 @@
+:root,
+[data-theme="light"],
+[data-theme="dark"] {
+  --bg-base: #f1efe8;
+  --bg-elevated: #fbfaf6;
+  --bg-subtle: #e5e2d9;
+  --fg-primary: #111111;
+  --fg-secondary: #55554f;
+  --fg-muted: #68675e;
+  --accent: #f0442d;
+  --accent-foreground: #141414;
+  --border: rgba(17, 17, 17, 0.12);
+  --border-strong: rgba(17, 17, 17, 0.28);
+  --success: #15805d;
+  --warning: #b87010;
+  --danger: #d83424;
+
+  --text-xs: clamp(0.7rem, 0.67rem + 0.12vw, 0.78rem);
+  --text-sm: clamp(0.86rem, 0.82rem + 0.18vw, 0.96rem);
+  --text-base: clamp(0.98rem, 0.94rem + 0.2vw, 1.08rem);
+  --text-lg: clamp(1.12rem, 1.02rem + 0.45vw, 1.38rem);
+  --text-xl: clamp(1.5rem, 1.2rem + 1vw, 2.1rem);
+  --text-2xl: clamp(2rem, 1.45rem + 2.2vw, 3.45rem);
+  --text-3xl: clamp(2.8rem, 1.8rem + 4vw, 5.8rem);
+  --text-hero: clamp(4rem, 9.8vw, 10rem);
+
+  --radius-card: 0;
+  --radius-block: 0;
+  --radius-pill: 9999px;
+  --dark-bg: #111111;
+  --dark-panel: #1b1b1b;
+  --dark-fg: #ffffff;
+  --theme-border: #aaa89f;
+  --header-glass: rgba(241, 239, 232, .9);
+}
+
+
