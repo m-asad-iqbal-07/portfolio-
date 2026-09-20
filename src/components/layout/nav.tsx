@@ -31,48 +31,60 @@ export function Nav() {
 
   useEffect(() => setOpen(false), [pathname]);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
   return (
-    <header className={"site-header " + (scrolled ? "is-scrolled" : "")}>
-      <Link href="/" className="site-wordmark" aria-label={siteConfig.name + " home"}>
-        {siteConfig.name}
-      </Link>
+    <>
+      <header className={"site-header " + (scrolled ? "is-scrolled" : "")}>
+        <Link href="/" className="site-wordmark" aria-label={siteConfig.name + " home"}>
+          {siteConfig.name}
+        </Link>
 
-      <nav className="site-nav" aria-label="Primary navigation">
-        {navItems.map((item) => (
-          <Link key={item.href} href={item.href} className={pathname.startsWith(item.href) ? "is-active" : ""}>
-            {item.label}
-          </Link>
-        ))}
-      </nav>
+        <nav className="site-nav" aria-label="Primary navigation">
+          {navItems.map((item) => (
+            <Link key={item.href} href={item.href} className={pathname.startsWith(item.href) ? "is-active" : ""}>
+              {item.label}
+            </Link>
+          ))}
+        </nav>
 
-      <Link href="/contact" className="nav-cta">
-        Contact
-        <i className="fi fi-rr-arrow-up-right" aria-hidden="true" />
-      </Link>
+        <Link href="/contact" className="nav-cta">
+          Contact
+          <i className="fi fi-rr-arrow-up-right" aria-hidden="true" />
+        </Link>
 
-      <button
-        className="nav-toggle"
-        type="button"
-        onClick={() => setOpen((value) => !value)}
-        aria-expanded={open}
-        aria-label={open ? "Close menu" : "Open menu"}
-      >
-        <i className={open ? "fi fi-rr-cross-small" : "fi fi-rr-menu-burger"} aria-hidden="true" />
-      </button>
+        <button
+          className="nav-toggle"
+          type="button"
+          onClick={() => setOpen((value) => !value)}
+          aria-expanded={open}
+          aria-label={open ? "Close menu" : "Open menu"}
+        >
+          <i className={open ? "fi fi-rr-cross-small" : "fi fi-rr-menu-burger"} aria-hidden="true" />
+        </button>
+      </header>
 
       {open ? (
-        <div className="mobile-menu">
-          <nav aria-label="Mobile navigation">
-            {navItems.map((item) => (
-              <Link key={item.href} href={item.href}>
-                <i className={navIcons[item.href]} aria-hidden="true" />
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-          <a href={"mailto:" + siteConfig.email}>{siteConfig.email}</a>
-        </div>
+        <>
+          <div className="mobile-menu-backdrop" onClick={() => setOpen(false)} aria-hidden="true" />
+          <div className="mobile-menu">
+            <nav aria-label="Mobile navigation">
+              {navItems.map((item) => (
+                <Link key={item.href} href={item.href}>
+                  <i className={navIcons[item.href]} aria-hidden="true" />
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+            <a href={"mailto:" + siteConfig.email}>{siteConfig.email}</a>
+          </div>
+        </>
       ) : null}
-    </header>
+    </>
   );
 }

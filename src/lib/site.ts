@@ -6,7 +6,7 @@ export const site = {
   description:
     "Full-stack developer building production apps with React, React Native, Node.js, Express, PostgreSQL, Redis, and real release workflows.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-  email: "masadiqbal385@gmail.com",
+  email: "m.asad.iqbal385@gmail.com",
   phone: "+92 333 794 1364",
   availability: "Open to full-time roles, freelance work, and remote gigs",
   usp: "Interfaces, services, data, integrations, and releases.",
