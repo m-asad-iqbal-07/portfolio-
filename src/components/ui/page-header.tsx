@@ -1,7 +1,9 @@
+import { getPageContent } from "@/lib/managed";
 ﻿import type { ReactNode } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
-import { ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, ChevronRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { ProjectVisualStack } from "@/components/media/project-visual-stack";
 import { TechMark } from "@/components/ui/tech-mark";
@@ -22,6 +24,7 @@ function HeaderVisual({ variant }: { variant: PageVariant }) {
     return (
       <div className="editorial-hero-art editorial-hero-project">
         <ProjectVisualStack
+          priority
           images={work
             ? ["/store/brothersfix/screen-01.jpg", "/store/brothersfix/screen-02.jpg", "/store/brothersfix/screen-03.jpg"]
             : ["/images/allure-dispatch.png", "/projects/allure-dispatch/screen-2.png", "/projects/allure-dispatch/screen-3.png"]}
@@ -68,12 +71,13 @@ export function PageHeader({
   variant: PageVariant;
 }) {
   const detail = heroDetails[variant];
+  const copy = getPageContent(variant === "stack" ? "/uses" : `/${variant}`);
   return (
     <header className={"editorial-page-header editorial-page-header-" + variant}>
       <div className="editorial-hero-copy">
-        <Reveal as="p" className="editorial-page-eyebrow"><span className="editorial-hero-dot" /> {eyebrow} / {detail.label}</Reveal>
-        <Reveal as="h1" delay={0.05} className="editorial-page-title">{title}</Reveal>
-        {intro && <Reveal as="p" delay={0.1} className="editorial-page-intro">{intro}</Reveal>}
+        <nav className="page-breadcrumbs" aria-label="Breadcrumb"><Link href="/">Home</Link><ChevronRight size={14} aria-hidden="true" /><span aria-current="page">{eyebrow}</span></nav>
+        <Reveal as="h1" delay={0.05} className="editorial-page-title">{copy ? <>{copy.headingLine1}<br /><em>{copy.headingLine2}</em></> : title}</Reveal>
+        {intro && <Reveal as="p" delay={0.1} className="editorial-page-intro">{copy?.intro || intro}</Reveal>}
         <Reveal delay={0.15}><a className="editorial-hero-action" href={detail.href}>{detail.action} <ArrowDownRight size={18} /></a></Reveal>
       </div>
       <div className="editorial-hero-visual-wrap">

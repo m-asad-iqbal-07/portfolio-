@@ -1,5 +1,6 @@
 "use client";
 
+import { ContentIcon } from "@/components/ui/content-icon";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { experience } from "@/content/data";
@@ -51,16 +52,15 @@ export function AboutTimeline() {
       const mobile = window.matchMedia("(max-width: 760px)").matches;
       gsap.utils.toArray<HTMLElement>(".about-timeline-item").forEach((item, index) => {
         gsap.from(item, {
-          x: mobile ? 0 : (index % 2 === 0 ? -40 : 40),
+          x: mobile ? 0 : (index % 2 === 0 ? -16 : 16),
           y: 24,
-          autoAlpha: 0,
-          filter: "blur(5px)",
-          duration: 0.9,
+          opacity: .7,
+          duration: 0.6,
           ease: "power3.out",
           scrollTrigger: {
             trigger: item,
             start: "top 86%",
-            toggleActions: "play none none reverse",
+            once: true,
           },
         });
       });
@@ -71,7 +71,6 @@ export function AboutTimeline() {
   return (
     <section className="about-timeline-section" ref={root}>
       <div className="route-section-head">
-        <span>Education &amp; experience</span>
         <h2>My timeline.</h2>
       </div>
       <div className="about-timeline">
@@ -84,7 +83,7 @@ export function AboutTimeline() {
               <time>{item.period}</time>
             </div>
             <span className="about-timeline-node" aria-hidden="true">
-              <i className={item.icon} />
+              <ContentIcon className={item.icon} />
             </span>
             <div className="about-timeline-card">
               <p>{item.kind}</p>

@@ -1,3 +1,4 @@
+import { ContentIcon } from "./content-icon";
 ﻿const marks: Record<string, string> = {
   TypeScript: "fi-brands-typescript",
   "Node.js": "fi-brands-node-js",
@@ -16,7 +17,7 @@ export function TechMark({ name }: { name: string }) {
           <circle r="2" fill="currentColor" />
         </svg>
       ) : (
-        <i className={"fi " + (marks[name] ?? "fi-rr-code-simple")} aria-hidden="true" />
+        marks[name] ? <i className={"fi " + marks[name]} aria-hidden="true" /> : <ContentIcon className="fi fi-rr-code-simple" />
       )}
       <span>{name}</span>
     </span>

@@ -1,5 +1,1 @@
-﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Asad Iqbal">
-  <rect width="64" height="64" rx="14" fill="#111111"/>
-  <path fill="#f1efe8" fill-rule="evenodd" d="M13 49 27.2 15h9.6L51 49H40.8l-2.7-7.2H25.9L23.2 49H13Zm16-16h6l-3-8.2L29 33Z"/>
-  <circle cx="50" cy="14" r="4.5" fill="#f0442d"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><rect width="80" height="80" rx="16" fill="#111"/><g transform="translate(4 8)"><path d="M3 54 23 10h11l20 44H42l-4-10H18l-4 10H3Zm19-20h12l-6-15-6 15Z" fill="#fff" fill-rule="evenodd"/><path d="M55 10h13v8h-2v28h2v8H55v-8h2V18h-2v-8Z" fill="#f51b27"/></g></svg>

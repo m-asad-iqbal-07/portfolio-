@@ -1,5 +1,6 @@
 /node_modules
 /.next
+/.next-dev
 /out
 /build
 .DS_Store
@@ -11,3 +12,10 @@ npm-debug.log*
 next-env.d.ts.bak
 .vercel
 *.tsbuildinfo
+
+# Local browser verification artifacts
+/.visual-review/
+/.impeccable/
+/.content-backups/
+/.seo-reports/
+PORTFOLIO-UI-REVIEW.md

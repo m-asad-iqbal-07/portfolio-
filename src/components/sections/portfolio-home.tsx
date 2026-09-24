@@ -1,5 +1,8 @@
-﻿"use client";
+"use client";
 
+import { ContentIcon } from "@/components/ui/content-icon";
+import { getPageContent } from "@/lib/managed";
+import { projects } from "@/content/projects";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
@@ -7,12 +10,13 @@ import { useGSAP } from "@gsap/react";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { ProjectVisualStack } from "@/components/media/project-visual-stack";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
+import { ProcessSteps } from "@/components/sections/process-steps";
 import { TechMark } from "@/components/ui/tech-mark";
 
 const expertise = [
   {
     icon: "fi-rr-mobile-button",
-    eyebrow: "React Native · Expo",
+    technologies: "React Native · Expo",
     title: "Mobile products",
     text: "Cross-platform apps, built and submitted to both stores.",
     images: ["/store/quickworx/screen-01.jpg", "/store/quickworx/screen-02.jpg", "/store/quickworx/screen-03.jpg"],
@@ -20,7 +24,7 @@ const expertise = [
   },
   {
     icon: "fi-rr-browser",
-    eyebrow: "React · TypeScript · Operational UI",
+    technologies: "React · TypeScript · Operational UI",
     title: "Web platforms",
     text: "Fast interfaces for the systems people actually use to get work done.",
     images: ["/images/allure-dispatch.png", "/projects/allure-dispatch/screen-2.png", "/projects/allure-dispatch/screen-3.png"],
@@ -28,7 +32,7 @@ const expertise = [
   },
   {
     icon: "fi-rr-api",
-    eyebrow: "Node · PostgreSQL · Redis",
+    technologies: "Node · PostgreSQL · Redis",
     title: "Connected systems",
     text: "Mobile, web, backend, data, integrations — built as one system.",
     images: ["/store/brothersfix/screen-01.jpg", "/store/brothersfix/screen-02.jpg", "/store/brothersfix/screen-03.jpg"],
@@ -36,7 +40,7 @@ const expertise = [
   },
   {
     icon: "fi-rr-blueprint",
-    eyebrow: "Architecture · Services · Delivery",
+    technologies: "Architecture · Services · Delivery",
     title: "Product architecture",
     text: "Cleaning up code so it’s easier to maintain, extend, and not be afraid of.",
     images: ["/store/iyurek/screen-01.png", "/store/iyurek/screen-02.png", "/store/iyurek/screen-03.png"],
@@ -52,7 +56,7 @@ const stack = [
 ];
 const stackIcons = ["fi-rr-mobile-button", "fi-rr-browser", "fi-rr-database", "fi-rr-chart-network"];
 
-const caseStudies = [
+const caseStudyCards = [
   {
     title: "BrothersFix Ecosystem",
     category: "Warehouse ERP + mobile",
@@ -83,6 +87,11 @@ const caseStudies = [
   },
 ];
 
+const caseStudies = caseStudyCards.map(card => {
+  const project = projects.find(item => card.href === `/work/${item.slug}`);
+  return project ? { ...card, title: project.title, result: project.summary } : card;
+});
+
 const shippedWork = [
   {
     name: "Closely",
@@ -100,169 +109,23 @@ const shippedWork = [
   },
 ];
 export function PortfolioHome() {
+  const copy = getPageContent("/")!;
   const root = useRef<HTMLDivElement>(null);
   const [openStack, setOpenStack] = useState<number | null>(0);
 
   useGSAP(
     () => {
       if (prefersReducedMotion()) return;
-      const mobile = window.matchMedia("(max-width: 760px)").matches;
-      const distance = mobile ? 28 : 58;
-      const angle = mobile ? 7 : 15;
-
-      const hero = gsap.timeline({ defaults: { ease: "power3.out" } });
-      hero
-        .from(".personal-hero-collage", {
-          y: mobile ? 60 : 95,
-          z: -180,
-          scale: 0.86,
-          rotationY: -18,
-          rotationX: 8,
-          autoAlpha: 0,
-          filter: "blur(10px)",
-          duration: 1.22,
-          transformPerspective: 1200,
-        }, 0.05)
-        .from("[data-hero-reveal]", {
-          yPercent: 75,
-          rotationX: -65,
-          autoAlpha: 0,
-          filter: "blur(5px)",
-          transformOrigin: "50% 100%",
-          transformPerspective: 1000,
-          duration: 1.02,
-          stagger: 0.16,
-        }, 0.28)
-        .from("[data-hero-side]", {
-          y: 28,
-          autoAlpha: 0,
-          filter: "blur(4px)",
-          duration: 0.75,
-          stagger: 0.1,
-        }, 0.82);
-
-      gsap.to("[data-hero-visual]", {
-        yPercent: 12,
-        scale: 0.96,
-        ease: "none",
-        scrollTrigger: { trigger: ".personal-home-hero", start: "top top", end: "bottom top", scrub: 0.9 },
+      gsap.from("[data-hero-reveal], [data-hero-side]", {
+        y: 14, opacity: .75, duration: .7, stagger: .06, ease: "power3.out",
       });
-      gsap.to(".personal-hero-title", {
-        yPercent: -8,
-        opacity: 0.42,
-        ease: "none",
-        scrollTrigger: { trigger: ".personal-home-hero", start: "top top", end: "bottom top", scrub: 0.9 },
+      gsap.from(".personal-hero-collage", {
+        y: 28, scale: .98, opacity: .8, duration: .9, ease: "power3.out",
       });
-
-      gsap.utils.toArray<HTMLElement>(".personal-section-heading").forEach((section) => {
-        gsap.from(section.children, {
-          y: 30,
-          autoAlpha: 0,
-          filter: "blur(4px)",
-          stagger: 0.1,
-          duration: 0.9,
-          ease: "power3.out",
-          scrollTrigger: { trigger: section, start: "top 92%", once: true },
-        });
-      });
-
-      gsap.utils.toArray<HTMLElement>(".expertise-card").forEach((card, index) => {
-        gsap.from(card, {
-          y: distance,
-          rotationX: angle,
-          rotationY: mobile ? 0 : (1.5 - index) * 3,
-          scale: 0.95,
-          autoAlpha: 0,
-          transformPerspective: 1200,
-          transformOrigin: "50% 100%",
-          duration: 1.15,
-          ease: "power3.out",
-          delay: (index % (mobile ? 2 : 4)) * 0.08,
-          scrollTrigger: { trigger: card, start: "top 93%", once: true },
-        });
-        const artwork = card.querySelector(".project-visual-stack");
-        if (artwork) gsap.from(artwork, {
-          scale: 1.06,
-          duration: 1.65,
-          ease: "power3.out",
-          scrollTrigger: { trigger: card, start: "top 93%", once: true },
-        });
-      });
-
-      const stackIntro = document.querySelector<HTMLElement>(".stack-intro");
-      if (stackIntro) gsap.from(stackIntro.children, {
-        y: 30,
-        autoAlpha: 0,
-        stagger: 0.09,
-        duration: 0.85,
-        ease: "power3.out",
-        scrollTrigger: { trigger: stackIntro, start: "top 90%", once: true },
-      });
-      gsap.from(".stack-accordion button", {
-        x: mobile ? 0 : 55,
-        y: mobile ? 22 : 0,
-        autoAlpha: 0,
-        stagger: 0.1,
-        duration: 0.9,
-        ease: "power3.out",
-        scrollTrigger: { trigger: ".stack-accordion", start: "top 88%", once: true },
-      });
-
-      gsap.utils.toArray<HTMLElement>(".personal-work-card").forEach((card, index) => {
-        gsap.from(card, {
-          y: distance,
-          rotationX: angle * 0.7,
-          scale: 0.95,
-          autoAlpha: 0,
-          transformPerspective: 1200,
-          duration: 1.15,
-          delay: (index % 2) * 0.1,
-          ease: "power3.out",
-          scrollTrigger: { trigger: card, start: "top 92%", once: true },
-        });
-        card.querySelectorAll<HTMLElement>(".project-visual-frame").forEach((frame, frameIndex) => {
-          gsap.fromTo(frame, { yPercent: frameIndex === 0 ? 3 : 7 }, {
-            yPercent: frameIndex === 0 ? -3 : -7,
-            ease: "none",
-            scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: 1.35 },
-          });
-        });
-      });
-
-      gsap.utils.toArray<HTMLElement>(".shipped-work-card, .process-personal-grid article").forEach((card, index) => {
-        gsap.from(card, {
-          y: distance,
-          rotationX: angle * 0.45,
-          rotationY: mobile ? 0 : -4,
-          scale: 0.96,
-          autoAlpha: 0,
-          transformPerspective: 1100,
-          duration: 1.08,
-          delay: (index % 4) * 0.065,
-          ease: "power3.out",
-          scrollTrigger: { trigger: card, start: "top 93%", once: true },
-        });
-
-        if (card.classList.contains("shipped-work-card")) {
-          card.querySelectorAll<HTMLElement>(".project-visual-frame").forEach((frame, frameIndex) => {
-            gsap.fromTo(frame, { yPercent: frameIndex === 0 ? 2 : 5 }, {
-              yPercent: frameIndex === 0 ? -2 : -5,
-              ease: "none",
-              scrollTrigger: { trigger: card, start: "top bottom", end: "bottom top", scrub: 1.45 },
-            });
-          });
-        }
-      });
-
-      gsap.utils.toArray<HTMLElement>(".process-personal-intro").forEach((section) => {
-        gsap.from(section.children, {
-          y: 28,
-          autoAlpha: 0,
-          filter: "blur(3px)",
-          stagger: 0.08,
-          duration: 0.85,
-          ease: "power3.out",
-          scrollTrigger: { trigger: section, start: "top 91%", once: true },
+      gsap.utils.toArray<HTMLElement>(".personal-section-heading, .expertise-card, .personal-work-card, .stack-intro, .stack-accordion, .process-personal-intro, .process-personal-grid article").forEach(element => {
+        gsap.from(element, {
+          y: 18, opacity: .8, duration: .65, ease: "power3.out",
+          scrollTrigger: { trigger: element, start: "top 92%", once: true },
         });
       });
     },
@@ -272,10 +135,10 @@ export function PortfolioHome() {
     <div className="personal-home" ref={root}>
       <section className="personal-home-hero">
         <h1 className="personal-hero-title">
-          <span><i data-hero-reveal>I BUILD APPS AND</i></span>
-          <span><i data-hero-reveal>WEB PLATFORMS.</i></span>
+          <span><i data-hero-reveal>{copy.headingLine1}</i></span>
+          <span><i data-hero-reveal>{copy.headingLine2}</i></span>
         </h1>
-        <p className="personal-hero-subtitle" data-hero-side>Full-Stack Developer · Web, Mobile &amp; Backend</p>
+
 
         <div className="personal-hero-visual" data-hero-visual>
           <div className="personal-hero-collage personal-hero-portrait">
@@ -283,20 +146,16 @@ export function PortfolioHome() {
           </div>
         </div>
 
-        <div className="home-tech-orbit" aria-label="Technologies I work with">
-          {["React", "React Native", "TypeScript", "Node.js", "PostgreSQL", "WordPress"].map((name, index) => (
-            <span className={"home-tech-float home-tech-float-" + (index + 1)} key={name}><TechMark name={name} /></span>
-          ))}
-        </div>
-
         <div className="personal-hero-intro" data-hero-side>
-          <p>I&apos;m Asad. I build mobile apps, web platforms, and their backends. My apps are live on the App Store and Google Play.</p>
+          <p>{copy.intro}</p>
           <Link href="/work">See the work <ArrowUpRight /></Link>
         </div>
 
+        <p className="personal-hero-note" data-hero-side><span />From the first screen<br />to the final release.</p>
         <a href="#work" className="personal-scroll-cue" data-hero-side><ArrowDown /> Explore</a>
       </section>
 
+      <div className="home-tech-strip" aria-label="Technologies I work with">{["React", "React Native", "TypeScript", "Node.js", "PostgreSQL", "WordPress"].map((name) => <span key={name}><TechMark name={name} /></span>)}</div>
       <section className="personal-work unified-home-work" id="work">
         <div className="personal-section-heading personal-section-heading-dark" data-home-reveal>
           <div><h2>Work.</h2></div>
@@ -330,8 +189,8 @@ export function PortfolioHome() {
             <Link className="expertise-card" href={item.href} key={item.title} data-home-reveal>
               <ProjectVisualStack images={item.images} title={item.title} sizes="(max-width: 760px) 85vw, 25vw" />
               <span className="expertise-shade" />
-              <i className={"fi " + item.icon + " expertise-icon"} aria-hidden="true" />
-              <div className="expertise-copy"><p>{item.eyebrow}</p><h3>{item.title}</h3><p>{item.text}</p></div>
+              <ContentIcon className={"fi " + item.icon + " expertise-icon"} />
+              <div className="expertise-copy"><h3>{item.title}</h3><p className="expertise-technologies">{item.technologies}</p><p>{item.text}</p></div>
               <span className="expertise-link-label">{item.href.startsWith("/services") ? "Explore service" : "View case study"}</span>
               <span className="expertise-arrow"><ArrowUpRight /></span>
             </Link>
@@ -341,7 +200,6 @@ export function PortfolioHome() {
 
       <section className="personal-stack">
         <div className="stack-intro" data-home-reveal>
-          <span>What I use</span>
           <h2>The full stack,<br />actually.</h2>
           <p>I work on the interface, the backend, the database, the integrations, and the releases — usually all on the same project.</p>
           <Link href="/about">More about me <ArrowUpRight /></Link>
@@ -349,7 +207,7 @@ export function PortfolioHome() {
         <div className="stack-accordion" data-home-reveal>
           {stack.map(([title, detail], index) => (
             <button key={title} onClick={() => setOpenStack(openStack === index ? null : index)} aria-expanded={openStack === index} aria-controls={`stack-detail-${index}`}>
-              <i className={"fi " + stackIcons[index]} aria-hidden="true" /><span>{title}</span><i>{openStack === index ? "−" : "+"}</i>
+              <ContentIcon className={"fi " + stackIcons[index]} /><span>{title}</span><i>{openStack === index ? "−" : "+"}</i>
               <em id={`stack-detail-${index}`} hidden={openStack !== index}>{detail}</em>
             </button>
           ))}
@@ -359,27 +217,18 @@ export function PortfolioHome() {
       <section className="personal-process">
         <div className="process-personal-intro" data-home-reveal>
           <div>
-            <span>How I work</span>
             <h2>Map. Connect.<br />Build. Operate.</h2>
           </div>
           <p>How I take an idea through release and beyond.</p>
         </div>
-        <div className="process-personal-grid">
-          {[
-            ["fi-rr-map", "Map", "Understand the real work.", "Users, outcomes, states, risks, and the smallest useful release."],
-            ["fi-rr-workflow", "Connect", "Design every boundary.", "Mobile, web, APIs, data, integrations, ownership, and what happens when something fails."],
-            ["fi-rr-code-simple", "Build", "Ship working increments.", "Try them on real devices, test them, release them, without losing sight of the goal."],
-            ["fi-rr-rocket-lunch", "Operate", "Own what happens next.", "Monitor it, maintain it, learn from it, improve it."],
-          ].map(([icon, title, subtitle, copy]) => (
-            <article key={title} data-home-reveal><i className={"fi " + icon} aria-hidden="true" /><h3>{title}</h3><h4>{subtitle}</h4><p>{copy}</p></article>
-          ))}
-        </div>
+        <ProcessSteps className="process-personal-grid" steps={[
+          { title: "Map", subtitle: "Understand the real work.", body: "Users, outcomes, states, risks, and the smallest useful release." },
+          { title: "Connect", subtitle: "Design every boundary.", body: "Mobile, web, APIs, data, integrations, ownership, and what happens when something fails." },
+          { title: "Build", subtitle: "Ship working increments.", body: "Try them on real devices, test them, release them, without losing sight of the goal." },
+          { title: "Operate", subtitle: "Own what happens next.", body: "Monitor it, maintain it, learn from it, improve it." },
+        ]} />
       </section>
-      <section className="personal-home-contact">
-        <h2>Let&apos;s build something useful.</h2>
-        <p>Tell me what you need to build, improve, or keep running.</p>
-        <Link href="/contact">Get in touch <ArrowUpRight /></Link>
-      </section>
+
     </div>
   );
 }

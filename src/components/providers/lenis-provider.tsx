@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactLenis, useLenis } from "lenis/react";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 function LenisGsapBridge() {
@@ -29,18 +29,25 @@ function LenisGsapBridge() {
 }
 
 export function LenisProvider({ children }: { children: ReactNode }) {
+  const [reduced, setReduced] = useState(true);
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduced(media.matches);
+    update(); media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
   return (
     <ReactLenis
       root
       options={{
         autoRaf: false,
         lerp: 0.085,
-        smoothWheel: true,
+        smoothWheel: !reduced,
         wheelMultiplier: 0.9,
         touchMultiplier: 1.05,
         syncTouch: false,
         overscroll: true,
-        anchors: true,
+        anchors: !reduced,
       }}
     >
       <LenisGsapBridge />

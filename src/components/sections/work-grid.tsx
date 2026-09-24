@@ -1,5 +1,6 @@
 "use client";
 
+import { ContentIcon } from "@/components/ui/content-icon";
 import { useState } from "react";
 import { categories, projects } from "@/content/projects";
 import { ProjectCard } from "./project-card";
@@ -27,7 +28,7 @@ export function WorkGrid() {
             onClick={() => setFilter(category)}
             aria-pressed={category === filter}
           >
-            <i className={categoryIcons[category]} aria-hidden="true" />
+            <ContentIcon className={categoryIcons[category]} />
             {category}
           </button>
         ))}

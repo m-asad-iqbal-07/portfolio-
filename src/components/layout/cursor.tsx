@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 /**
- * Custom cursor — a lime dot that grows over interactive targets and reveals
+ * Custom cursor — a red dot that grows over interactive targets and reveals
  * a label on data-cursor elements. Desktop / fine-pointer only; touch devices
  * keep the native cursor untouched and never mount the dot at all.
  */
@@ -33,6 +33,7 @@ export function Cursor() {
     const moveY = gsap.quickTo(dot, "y", { duration: 0.25, ease: "power3.out" });
 
     function onMove(e: MouseEvent) {
+      gsap.set(dot, { opacity: 1 });
       moveX(e.clientX);
       moveY(e.clientY);
 
@@ -73,13 +74,15 @@ export function Cursor() {
     <div
       ref={dotRef}
       aria-hidden="true"
-      className="pointer-events-none fixed left-0 top-0 z-[9999] flex items-center justify-center rounded-full border border-white/70 text-[10px] font-medium uppercase tracking-widest text-white shadow-[0_4px_24px_rgba(0,0,0,.3)]"
+      className="pointer-events-none fixed left-0 top-0 z-[9999] flex items-center justify-center rounded-full text-[10px] font-medium uppercase tracking-widest text-white"
       style={{
-        width: active ? (label ? 80 : 40) : 12,
-        height: active ? (label ? 80 : 40) : 12,
-        marginLeft: active ? (label ? -40 : -20) : -6,
-        marginTop: active ? (label ? -40 : -20) : -6,
-        background: "var(--accent)",
+        opacity: 0,
+        width: active ? (label ? 80 : 36) : 8,
+        height: active ? (label ? 80 : 36) : 8,
+        marginLeft: active ? (label ? -40 : -18) : -4,
+        marginTop: active ? (label ? -40 : -18) : -4,
+        background: active && !label ? "transparent" : "var(--accent)",
+        border: "1px solid var(--accent)",
         transition:
           "width 0.25s ease, height 0.25s ease, margin 0.25s ease",
         willChange: "transform",

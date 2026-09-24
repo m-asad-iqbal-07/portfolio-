@@ -1,245 +1,67 @@
-﻿import type { Metadata } from "next";
+﻿import Link from "next/link";
 import Image from "next/image";
-import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Check, ChevronRight } from "lucide-react";
 import { getProject, projects } from "@/content/projects";
-import { siteConfig } from "@/lib/site";
 import { pageMetadata } from "@/lib/seo";
-import { Reveal } from "@/components/motion/reveal";
-import { JsonLd } from "@/components/seo/json-ld";
-import type { CaseSection } from "@/types/content";
+import { PageJsonLd } from "@/components/seo/json-ld";
+import { ProjectGallery } from "@/components/media/project-gallery";
+import { CaseNavigation } from "@/components/sections/case-navigation";
 
-export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }));
+export function generateStaticParams() { return projects.map(project => ({ slug: project.slug })); }
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params; const project = getProject(slug);
+  return project ? pageMetadata({ title: project.title, description: project.summary, path: `/work/${project.slug}` }) : { title: "Case study not found", robots: { index: false, follow: true }, alternates: { canonical: null } };
 }
+function Prose({ paragraphs }: { paragraphs: string[] }) { return <div className="case-prose">{paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div>; }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-  const { slug } = await params;
-  const project = getProject(slug);
-  if (!project) return pageMetadata({ title: "Case study not found" });
-  return pageMetadata({
-    title: project.title,
-    description: project.summary,
-    path: `/work/${project.slug}`,
-  });
-}
-
-function Prose({ paragraphs }: { paragraphs: string[] }) {
-  return (
-    <div className="mt-4 space-y-4">
-      {paragraphs.map((paragraph, index) => (
-        <p key={index} className="max-w-2xl text-[var(--fg-secondary)]">
-          {paragraph}
-        </p>
-      ))}
-    </div>
-  );
-}
-
-function Part({
-  icon,
-  title,
-  children,
-}: {
-  icon: string;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <Reveal
-      as="section"
-      className="border-t border-[var(--border)] py-12 md:grid md:grid-cols-[120px_1fr] md:gap-10"
-    >
-      <i className={"fi " + icon + " text-xl text-[var(--accent)]"} aria-hidden="true" />
-      <div>
-        <h2 className="font-display text-[length:var(--text-xl)] font-medium tracking-tight text-[var(--fg-primary)]">
-          {title}
-        </h2>
-        {children}
-      </div>
-    </Reveal>
-  );
-}
-
-export default async function CaseStudyPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const project = getProject(slug);
-  if (!project) notFound();
-
-  const isDispatch = project.slug === "allure-dispatch";
-  const isScoped = project.slug === "iyurek";
-  const productLabel = isScoped ? "Engagement" : "Product";
-
-  const articleLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: `${project.title} — ${project.summary}`,
-    about: project.title,
-    author: { "@type": "Person", name: siteConfig.name },
-    keywords: project.stack.join(", "),
-    url: `${siteConfig.url}/work/${project.slug}`,
-  };
-
-  return (
-    <article className="pb-28">
-      <JsonLd data={articleLd} />
-
-      <header className="container-page case-study-header pb-10 pt-36 md:pt-44">
-        <div className="case-study-copy">
-        <Link
-          href="/work"
-          className="inline-flex items-center gap-1.5 font-mono text-[0.9375rem] uppercase tracking-widest text-[var(--fg-muted)] transition-colors hover:text-[var(--accent)]"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" /> All work
-        </Link>
-
-        <Reveal
-          as="h1"
-          className="mt-8 max-w-4xl font-display text-[length:var(--text-3xl)] font-bold tracking-[-0.03em] text-[var(--fg-primary)]"
-        >
-          {project.title}
-        </Reveal>
-        <p className="mt-5 max-w-2xl text-[length:var(--text-lg)] text-[var(--fg-secondary)]">
-          {project.summary}
-        </p>
-
-        <dl className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">
-          <Meta label={productLabel} value={project.client} />
-          <Meta label="Role" value={project.role} />
-          <Meta label="Period" value={project.period} />
-          <Meta label="Category" value={project.category} />
-        </dl>
-
-        <dl className="case-overview-details">
-          <Meta label="Outcome" value={project.outcome} />
-          <Meta label="Stack" value={project.stack.join(" · ")} />
-        </dl>
-
-        {project.links && (
-          <div className="mt-8 flex flex-wrap gap-3">
-            {project.links.appstore && (
-              <ExtLink href={project.links.appstore} label="App Store" />
-            )}
-            {project.links.playstore && (
-              <ExtLink href={project.links.playstore} label="Google Play" />
-            )}
-            {project.links.website && (
-              <ExtLink href={project.links.website} label="Web" />
-            )}
+export default async function CaseStudyPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params; const project = getProject(slug); if (!project) notFound();
+  const isDispatch = project.slug === "allure-dispatch", isScoped = project.slug === "iyurek";
+  const next = projects[(projects.findIndex(item => item.slug === slug) + 1) % projects.length]!;
+  const [firstWord, ...remainingWords] = project.title.split(" ");
+  const caption = isDispatch ? "The dashboard is a real product screenshot. The dispatch and operations views are generated concepts, not screenshots of shipped features." : isScoped ? "Official App Store screenshots of the wider product. My contribution was limited to one feature’s architecture." : "Official product screenshots from the public store listing.";
+  return <article className={`case-study${isDispatch ? " case-study-web" : ""}`}>
+    <PageJsonLd path={`/work/${project.slug}`} project={project} />
+    <header className="case-intro">
+      <nav className="page-breadcrumbs" aria-label="Breadcrumb"><Link href="/work">All projects</Link><ChevronRight size={14} aria-hidden="true" /><span aria-current="page">{project.title}</span></nav>
+      <div className="case-headline"><h1>{firstWord}{remainingWords.length > 0 && <em>{remainingWords.join(" ")}</em>}</h1>
+        <div className="case-intro-copy"><p className="case-summary">{project.summary}</p>
+          <p className="case-status"><span aria-hidden="true" />{project.outcome}</p>
+          <div className="case-product-links">
+            {project.links?.appstore && <External href={project.links.appstore} label="App Store" />}
+            {project.links?.playstore && <External href={project.links.playstore} label="Google Play" />}
+            {project.links?.website && <External href={project.links.website} label="Visit live website" />}
           </div>
-        )}
         </div>
-        <div className="case-hero-visual">
-        <Image
-          className={project.image.startsWith("/store/") ? "store-shot" : ""}
-          src={project.image}
-          alt={`${project.title} project presentation`}
-          fill
-          priority
-          sizes="(max-width: 760px) 92vw, 45vw"
-        />
-        </div>
-      </header>
-
-{project.screens?.length ? (
-        <section
-          className="case-screen-gallery container-page"
-          aria-label={isDispatch ? `${project.title} product screen and supporting concepts` : `${project.title} official product screens`}
-        >
-          <div className="case-screen-track">
-            {project.screens.map((screen, index) => (
-              <figure key={screen} className="case-screen">
-                <Image
-                  src={screen}
-                  alt={isDispatch ? `${project.title} platform view ${index + 1}` : `${project.title} official product screen ${index + 1}`}
-                  fill
-                  sizes="(max-width: 760px) 68vw, 24vw"
-                />
-              </figure>
-            ))}
-          </div>
-          <p>
-            {isDispatch
-              ? "One real product screen with generated supporting concepts for the other platform views."
-              : isScoped
-                ? "Official Apple App Store screenshots. The images show the wider product; my written claim stays limited to the one feature I worked on."
-                : "Official product screenshots from the public store listing."}
-          </p>
-        </section>
-      ) : null}
-
-      <div className="container-page mt-12">
-        <Part icon="fi-rr-document" title="Context">
-          <Prose paragraphs={project.context} />
-        </Part>
-        <Part icon="fi-rr-blueprint" title="Approach">
-          <Prose paragraphs={project.approach} />
-        </Part>
-        <Part icon="fi-rr-code-simple" title="Build">
-          <div className="mt-4 space-y-8">
-            {project.build.map((section: CaseSection) => (
-              <div key={section.heading}>
-                <h3 className="font-medium text-[var(--fg-primary)]">
-                  {section.heading}
-                </h3>
-                <Prose paragraphs={section.body} />
-              </div>
-            ))}
-          </div>
-        </Part>
-        <Part icon="fi-rr-trophy" title="Results">
-          <ul className="mt-4 space-y-3">
-            {project.results.map((result, index) => (
-              <li
-                key={index}
-                className="flex max-w-2xl gap-3 text-[var(--fg-secondary)]"
-              >
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent)]" />
-                {result}
-              </li>
-            ))}
-          </ul>
-        </Part>
-        <Part icon="fi-rr-lightbulb-on" title="Reflection">
-          <Prose paragraphs={project.reflection} />
-        </Part>
       </div>
-    </article>
-  );
-}
-
-function Meta({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <dt className="font-mono text-[0.9375rem] uppercase tracking-widest text-[var(--fg-muted)]">
-        {label}
-      </dt>
-      <dd className="mt-1 text-base text-[var(--fg-primary)]">{value}</dd>
+    </header>
+    {project.screens?.length ? <ProjectGallery key={`gallery-${project.slug}`} title={project.title} screens={project.screens} landscape={isDispatch} caption={caption} /> : null}
+    <div className="case-facts-wrap"><dl className="case-facts"><Meta label="Engagement" value={project.client} /><Meta label="My role" value={project.role} /><Meta label="Period" value={project.period} /><Meta label="Platform" value={project.category} /></dl><div className="case-stack"><span>Technology</span><ul>{project.stack.map(tech => <li key={tech}>{tech}</li>)}</ul></div></div>
+    <CaseNavigation key={`contents-${project.slug}`} />
+    <div className="case-story">
+      <div className="case-overview">
+        <section id="case-context"><h2>The context.</h2><Prose paragraphs={project.context} /></section>
+        <section id="case-approach"><h2>The approach.</h2><Prose paragraphs={project.approach} /></section>
+      </div>
+      <section id="case-build" className="case-build-section">
+        <div className="case-section-intro"><h2>What I built.</h2><p>{project.role}</p></div>
+        {isDispatch && <div className="case-system" aria-label="Allure Dispatch system architecture">
+          <div><span>Interface</span><strong>React + TypeScript</strong></div><ArrowRight aria-hidden="true" />
+          <div><span>Shared services</span><strong>Node.js + Express</strong><p>REST APIs · Webhooks</p></div><ArrowRight aria-hidden="true" />
+          <div><span>Data</span><strong>PostgreSQL + Redis</strong></div>
+          <p className="case-system-mobile">React Native companion <span>In development · uses the same service contracts</span></p>
+        </div>}
+        <div className="case-build-list">{project.build.map(section => <div key={section.heading}><h3>{section.heading}</h3><Prose paragraphs={section.body} /></div>)}</div>
+      </section>
+      <section id="case-results" className="case-results"><h2>The outcome.</h2><ul>{project.results.map(result => <li key={result}><Check size={22} aria-hidden="true" /><p>{result}</p></li>)}</ul></section>
+      <section id="case-reflection" className="case-reflection"><h2>Looking back.</h2><Prose paragraphs={project.reflection} /></section>
     </div>
-  );
+    <nav className="case-next" aria-label="More case studies"><div className="case-next-top"><h2>Next project.</h2><Link href="/work"><ArrowLeft size={16} />All projects</Link></div>
+      <Link className="case-next-project" href={`/work/${next.slug}`}><div className="case-next-copy"><h3>{next.title}</h3><p>{next.role}</p><span>Explore the case study <ArrowUpRight size={18} /></span></div><div className="case-next-image"><Image src={next.image} alt="" fill sizes="(max-width: 700px) 70vw, 35vw" /></div><ArrowUpRight className="case-next-arrow" aria-hidden="true" /></Link>
+    </nav>
+  </article>;
 }
-
-function ExtLink({ href, label }: { href: string; label: string }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border-strong)] px-4 py-2 text-base text-[var(--fg-primary)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
-    >
-      {label}
-      <ArrowUpRight className="h-4 w-4" />
-    </a>
-  );
-}
-
-
+function Meta({ label, value }: { label: string; value: string }) { return <div><dt>{label}</dt><dd>{value}</dd></div>; }
+function External({ href, label }: { href: string; label: string }) { return <a href={href} target="_blank" rel="noreferrer">{label}<ArrowUpRight size={16} aria-hidden="true" /></a>; }

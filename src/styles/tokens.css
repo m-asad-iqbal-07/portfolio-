@@ -1,13 +1,13 @@
 :root,
 [data-theme="light"],
 [data-theme="dark"] {
-  --bg-base: #f1efe8;
-  --bg-elevated: #fbfaf6;
-  --bg-subtle: #e5e2d9;
+  --bg-base: #ffffff;
+  --bg-elevated: #fafafa;
+  --bg-subtle: #f0f0f0;
   --fg-primary: #111111;
   --fg-secondary: #55554f;
   --fg-muted: #68675e;
-  --accent: #f0442d;
+  --accent: #f51b27;
   --accent-foreground: #141414;
   --border: rgba(17, 17, 17, 0.12);
   --border-strong: rgba(17, 17, 17, 0.28);
@@ -31,7 +31,7 @@
   --dark-panel: #1b1b1b;
   --dark-fg: #ffffff;
   --theme-border: #aaa89f;
-  --header-glass: rgba(241, 239, 232, .9);
+  --header-glass: rgba(255, 255, 255, .97);
 }
 
 

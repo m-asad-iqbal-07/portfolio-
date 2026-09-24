@@ -7,7 +7,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "content:edit": "node scripts/editor/server.mjs",
+    "seo:validate": "node scripts/seo/validate.mjs",
+    "seo:audit": "node scripts/seo/audit.mjs",
+    "test:seo": "node --test scripts/seo/*.test.mjs",
+    "prebuild": "npm run seo:validate"
   },
   "dependencies": {
     "@flaticon/flaticon-uicons": "^3.3.1",

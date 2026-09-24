@@ -1,5 +1,7 @@
+import { ContentIcon } from "@/components/ui/content-icon";
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { catalogProjects } from "@/content/catalog";
 import { projects } from "@/content/projects";
 import { ProjectVisualStack } from "@/components/media/project-visual-stack";
@@ -40,8 +42,7 @@ export function ProjectArchive() {
       </div>
 
       <p className="unified-work-intro">
-        Every project here is part of my portfolio. The scope label explains whether I owned the build,
-        contributed to a focused area, or developed it as R&amp;D — it does not rank the work.
+        Production products, focused contributions, and R&amp;D. Each project includes my role, the technology, and the scope of the work.
       </p>
 
       <div className="project-archive-grid">
@@ -75,13 +76,14 @@ export function ProjectArchive() {
               <p className="project-archive-type">{project.type}</p>
               <p>{project.description}</p>
               <p className="project-archive-scope">
-                <i className="fi fi-rr-badge-check" aria-hidden="true" />
+                <ContentIcon className="fi fi-rr-badge-check" />
                 {project.contribution}
               </p>
               <ul>
                 {project.stack.map((item) => <li key={item}>{item}</li>)}
               </ul>
               {project.proof ? <small>{project.proof}</small> : null}
+              {project.href && <span className="project-archive-action">{project.internal ? "Read case study" : "Visit live project"}<ArrowUpRight size={18} /></span>}
             </>
           );
 

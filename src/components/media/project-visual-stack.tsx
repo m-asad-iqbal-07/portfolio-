@@ -20,10 +20,12 @@ export function ProjectVisualStack({
   images,
   title,
   sizes = "(max-width: 760px) 92vw, 48vw",
+  priority = false,
 }: {
   images: string[];
   title: string;
   sizes?: string;
+  priority?: boolean;
 }) {
   const visuals = images.slice(0, 3);
   const isPhoneComposition = visuals.length === 3 && visuals.every(isPhoneVisual);
@@ -31,9 +33,9 @@ export function ProjectVisualStack({
 
   return (
     <div className={className} role="img" aria-label={title + " project visuals"}>
-      {visuals.map((src) => (
+      {visuals.map((src, index) => (
         <span className={"project-visual-frame" + (isPhoneVisual(src) ? " is-phone" : "")} key={src}>
-          <Image src={src} alt="" fill sizes={sizes} />
+          <Image src={src} alt="" fill sizes={sizes} priority={priority && index === 0} loading={priority ? "eager" : "lazy"} />
         </span>
       ))}
     </div>

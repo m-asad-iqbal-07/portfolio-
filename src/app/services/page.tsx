@@ -1,3 +1,5 @@
+import { PageJsonLd } from "@/components/seo/json-ld";
+import { ProcessSteps } from "@/components/sections/process-steps";
 ﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, Check } from "lucide-react";
@@ -14,13 +16,15 @@ export const metadata: Metadata = pageMetadata({
   path: "/services",
 });
 
+const serviceTitles = ["Connected products", "Mobile app delivery", "Operational systems", "Websites & CMS"];
+
 const serviceVisuals = [
   {
     images: ["/images/allure-dispatch.png", "/projects/allure-dispatch/screen-2.png", "/projects/allure-dispatch/screen-3.png"],
     label: "Allure Dispatch · product screen and supporting concepts",
     project: "Allure Dispatch",
     href: "/work/allure-dispatch",
-    outcome: "One connected product across web, services, data, and mobile.",
+    outcome: "A live web platform with shared services and a mobile companion in development.",
   },
   {
     images: ["/store/quickworx/screen-01.jpg", "/store/quickworx/screen-02.jpg", "/store/quickworx/screen-03.jpg"],
@@ -48,6 +52,7 @@ const serviceVisuals = [
 export default function ServicesPage() {
   return (
     <>
+      <PageJsonLd path="/services" />
       <PageHeader
         eyebrow="Services"
         variant="services"
@@ -55,10 +60,11 @@ export default function ServicesPage() {
         intro="I work across the parts that make a product useful: the interface, the systems behind it, and the path to a reliable release."
       />
       <section className="services-intro" aria-label="How I can help">
-        <span>What I can help with</span>
+        <h2>The whole product.<br />Or the part you need.</h2>
         <p>Some projects need an app. Others need the API, data model, internal tools, and release process around it. I can work across that whole path or take ownership of a focused part.</p>
         <Link href="/contact">Tell me about your project <ArrowUpRight size={19} /></Link>
       </section>
+      <nav className="service-navigation" aria-label="Explore services">{services.map((service, index) => <a key={service.id} href={`#${service.id}`}>{serviceTitles[index]}<ArrowUpRight size={16} /></a>)}</nav>
       <section className="service-ledger service-showcase" id="services">
         {services.map((service, index) => {
           const visual = serviceVisuals[index]!;
@@ -69,18 +75,17 @@ export default function ServicesPage() {
                 <span>{visual.label}</span>
               </div>
               <div className="service-copy">
-                <div className="service-copy-top"><i className={"fi " + service.icon} aria-hidden="true" /></div>
-                <p className="service-kicker">{service.tagline}</p>
-                <h2>{service.title}</h2>
+                <h2>{serviceTitles[index]}</h2>
+                <p className="service-specialism">{service.tagline}</p>
                 <p className="service-description">{service.description}</p>
-                <p className="service-outcome">{visual.outcome}</p>
+                <p className="service-outcome"><Check size={18} aria-hidden="true" />{visual.outcome}</p>
                 <div className="service-includes">
                   <h3>What this covers</h3>
                   <ul>
                     {service.includes.map((item) => <li key={item}><Check size={15} aria-hidden="true" />{item}</li>)}
                   </ul>
                 </div>
-                <Link className="service-project-link" href={visual.href}>See {visual.project} <ArrowUpRight size={18} /></Link>
+                <Link className="service-project-link" href={visual.href}>{visual.href === "/work" ? "Explore web projects" : `View ${visual.project}`} <ArrowUpRight size={18} /></Link>
               </div>
             </Reveal>
           );
@@ -89,26 +94,12 @@ export default function ServicesPage() {
 
       <section className="route-process">
         <div className="route-section-head">
-          <span>From first brief to the live product</span>
           <h2>How I work.</h2>
           <p>Clear scope, working increments, and ownership after launch.</p>
         </div>
-        <div className="route-process-grid">
-          {processSteps.map((step) => (
-            <Reveal as="article" key={step.title}>
-              <i className={step.step} aria-hidden="true" />
-              <h3>{step.title}</h3>
-              <p>{step.body}</p>
-            </Reveal>
-          ))}
-        </div>
+        <ProcessSteps className="route-process-grid" steps={processSteps} />
       </section>
-      <section className="services-end-cta">
-        <span>Have something in motion?</span>
-        <h2>Let&apos;s make it work.</h2>
-        <p>Tell me what exists, what needs to change, and where you need help.</p>
-        <Link href="/contact">Start a conversation <ArrowUpRight size={20} /></Link>
-      </section>
+
     </>
   );
 }

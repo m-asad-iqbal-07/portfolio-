@@ -1,5 +1,6 @@
 "use client";
 
+import { ContentIcon } from "@/components/ui/content-icon";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
@@ -43,7 +44,7 @@ export function Hero() {
       </div>
       <div className="container-page pointer-events-none absolute inset-x-0 bottom-8">
         <div className="flex items-center gap-2 font-mono text-[length:var(--text-xs)] uppercase tracking-widest text-[var(--fg-muted)]">
-          <i className="fi fi-rr-arrow-small-down text-[var(--accent)]" aria-hidden="true" />
+          <ContentIcon className="fi fi-rr-arrow-small-down text-[var(--accent)]" />
           Scroll
         </div>
       </div>

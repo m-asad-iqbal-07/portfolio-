@@ -39,7 +39,7 @@ export function Stagger({
 
       gsap.fromTo(
         items,
-        { opacity: 0, y: 28 },
+        { opacity: .7, y: 18 },
         {
           opacity: 1,
           y: 0,
@@ -49,7 +49,7 @@ export function Stagger({
           scrollTrigger: {
             trigger: el,
             start: "top 85%",
-            toggleActions: "play none none reverse",
+            once: true,
           },
         },
       );

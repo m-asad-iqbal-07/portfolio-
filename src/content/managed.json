@@ -1,0 +1,441 @@
+{
+  "version": 1,
+  "site": {
+    "url": "https://m-asad-iqbal.vercel.app",
+    "index": true,
+    "googleVerification": "",
+    "bingVerification": ""
+  },
+  "profile": {
+    "name": "Muhammad Asad Iqbal",
+    "shortName": "Asad Iqbal",
+    "role": "Full-Stack Developer — Web, Mobile & Backend",
+    "description": "Full-stack developer building production apps with React, React Native, Node.js, Express, PostgreSQL, Redis, and real release workflows.",
+    "email": "masadiqbal385@gmail.com",
+    "phone": "+92 333 794 1364",
+    "availability": "Open to full-time roles, freelance work, and remote gigs",
+    "linkedin": "https://www.linkedin.com/in/muhammad-asad-iqbal-515ab8247/",
+    "github": "https://github.com/m-asad-iqbal-07"
+  },
+  "pages": {
+    "/": {
+      "title": "Asad Iqbal | Full-Stack, React Native & Web Developer",
+      "description": "Muhammad Asad Iqbal builds React Native apps, React websites, Node.js APIs and connected product systems. Explore shipped work, services and project case studies.",
+      "canonical": "/",
+      "index": true,
+      "image": "/opengraph-image",
+      "headingLine1": "I BUILD APPS.",
+      "headingLine2": "& PLATFORMS.",
+      "intro": "I'm Asad. I build mobile apps, web platforms, and their backends. My apps are live on the App Store and Google Play."
+    },
+    "/work": {
+      "title": "Mobile & Web Development Projects | Asad Iqbal",
+      "description": "Explore Asad Iqbal’s mobile apps and web platforms: BrothersFix, Allure Dispatch, QuickWorX and a scoped iYurek architecture contribution.",
+      "canonical": "/work",
+      "index": true,
+      "image": "/opengraph-image",
+      "headingLine1": "Work.",
+      "headingLine2": "In motion.",
+      "intro": "Published apps, connected platforms, and focused contributions. Explore the product and the work behind it."
+    },
+    "/services": {
+      "title": "React Native, Web & Backend Development | Asad Iqbal",
+      "description": "React Native app development, React web platforms, Node.js APIs, operational systems and WordPress delivery. Discuss your next project with Asad Iqbal.",
+      "canonical": "/services",
+      "index": true,
+      "image": "/opengraph-image",
+      "headingLine1": "Build it.",
+      "headingLine2": "Run it.",
+      "intro": "I work across the parts that make a product useful: the interface, the systems behind it, and the path to a reliable release."
+    },
+    "/about": {
+      "title": "About Asad Iqbal | Full-Stack Product Developer",
+      "description": "Meet Muhammad Asad Iqbal, a full-stack developer working across mobile apps, web platforms, backend services and production releases. Explore his experience.",
+      "canonical": "/about",
+      "index": true,
+      "image": "/opengraph-image",
+      "headingLine1": "More than",
+      "headingLine2": "the code.",
+      "intro": "A bit about what I do and how I got here."
+    },
+    "/contact": {
+      "title": "Contact Asad Iqbal | Discuss Your App or Web Project",
+      "description": "Contact Muhammad Asad Iqbal about mobile apps, web development and backend engineering. Open to full-time roles, freelance projects and remote work.",
+      "canonical": "/contact",
+      "index": true,
+      "image": "/opengraph-image",
+      "headingLine1": "Build",
+      "headingLine2": "together.",
+      "intro": "Send a message with what you're building and what you need."
+    },
+    "/uses": {
+      "title": "Developer Toolkit: React, Node.js & More | Asad Iqbal",
+      "description": "Explore the tools Asad Iqbal uses for mobile, web, backend, data and CMS work, with practical explanations of where each technology fits.",
+      "canonical": "/uses",
+      "index": true,
+      "image": "/opengraph-image",
+      "headingLine1": "The tools.",
+      "headingLine2": "The why.",
+      "intro": "From mobile interfaces to the services behind them. What I use, where it fits, and why I choose it."
+    },
+    "/work/brothersfix": {
+      "title": "BrothersFix: Warehouse ERP & Mobile App | Asad Iqbal",
+      "description": "A BrothersFix case study: React Native warehouse scanning, inventory workflows and ERP integration. See Asad Iqbal’s role, approach and production delivery.",
+      "canonical": "/work/brothersfix",
+      "index": true,
+      "image": "/opengraph-image",
+      "headingLine1": "",
+      "headingLine2": "",
+      "intro": ""
+    },
+    "/work/allure-dispatch": {
+      "title": "Allure Dispatch: Web Platform & APIs | Asad Iqbal",
+      "description": "Explore Asad Iqbal’s work on Allure Dispatch: a live React operations platform, Node.js APIs, PostgreSQL and Redis, with a mobile companion in development.",
+      "canonical": "/work/allure-dispatch",
+      "index": true,
+      "image": "/opengraph-image",
+      "headingLine1": "",
+      "headingLine2": "",
+      "intro": ""
+    },
+    "/work/quickworx": {
+      "title": "QuickWorX: Employee Mobile App | Asad Iqbal",
+      "description": "Explore the QuickWorX employee app case study, including attendance, leave, payroll and support workflows, published on the App Store and Google Play.",
+      "canonical": "/work/quickworx",
+      "index": true,
+      "image": "/opengraph-image",
+      "headingLine1": "",
+      "headingLine2": "",
+      "intro": ""
+    },
+    "/work/iyurek": {
+      "title": "iYurek: Feature Architecture Case Study | Asad Iqbal",
+      "description": "A scoped contribution to iYurek: improving one feature’s module and service boundaries in a live finance app. Read Asad Iqbal’s approach and lessons.",
+      "canonical": "/work/iyurek",
+      "index": true,
+      "image": "/opengraph-image",
+      "headingLine1": "",
+      "headingLine2": "",
+      "intro": ""
+    }
+  },
+  "projects": [
+    {
+      "slug": "brothersfix",
+      "title": "BrothersFix Ecosystem",
+      "client": "BrothersFix",
+      "role": "Mobile Developer · ERP Feature Owner",
+      "period": "2026 — Present",
+      "category": "Mobile",
+      "featured": true,
+      "image": "/store/brothersfix/screen-01.jpg",
+      "screens": [
+        "/store/brothersfix/screen-01.jpg",
+        "/store/brothersfix/screen-02.jpg",
+        "/store/brothersfix/screen-03.jpg",
+        "/store/brothersfix/screen-04.jpg",
+        "/store/brothersfix/screen-05.jpg"
+      ],
+      "summary": "A warehouse product that ties together ERP inventory, barcode/QR scanning, client-specific views, and a React Native app for the field team.",
+      "outcome": "Live on the App Store, Google Play, and the web · still actively owned",
+      "stack": [
+        "React Native",
+        "Expo",
+        "React",
+        "Node.js",
+        "Express",
+        "REST APIs",
+        "PostgreSQL",
+        "Redis"
+      ],
+      "links": {
+        "appstore": "https://apps.apple.com/us/app/brothersfix/id6756797086",
+        "playstore": "https://play.google.com/store/apps/details?id=com.brothersfix.brothersfix",
+        "website": "https://app.brothersfix.com"
+      },
+      "metrics": [
+        {
+          "label": "Distribution",
+          "value": "iOS + Android"
+        },
+        {
+          "label": "Operations",
+          "value": "Web ERP"
+        },
+        {
+          "label": "Ownership",
+          "value": "Active"
+        }
+      ],
+      "context": [
+        "Warehouse teams were juggling stock control, client jobs, and field updates across a pile of disconnected tools — no shared source of truth, no real audit trail.",
+        "The system needed to handle nested inventory, individual-unit tracking, client isolation, and scanning that actually holds up on a warehouse floor."
+      ],
+      "approach": [
+        "I connected the ERP-side inventory logic to a React Native app built for scanning and fieldwork, so the warehouse floor and the office stay in sync.",
+        "Mobile and web share the same data contracts, so item status, movement, remarks, and media stay consistent no matter which surface you're on."
+      ],
+      "build": [
+        {
+          "heading": "Inventory and relocation",
+          "body": [
+            "Built real-time stock visibility, nested folders/locations, and the ability to move items or groups around while keeping their full history."
+          ]
+        },
+        {
+          "heading": "Barcode and QR operations",
+          "body": [
+            "Wired up scanning so warehouse staff can pull up an item, check measurements and remarks, and log movement right from the floor."
+          ]
+        },
+        {
+          "heading": "Production delivery",
+          "body": [
+            "Shipped the React Native app to iOS and Android, and I'm still extending the ERP side and shipping fixes and improvements post-launch."
+          ]
+        }
+      ],
+      "results": [
+        "Live on both major app stores, plus a web ERP at app.brothersfix.com.",
+        "One connected system handles inventory, scanning, client views, remarks, media, and field activity."
+      ],
+      "reflection": [
+        "The best version of this treats the mobile app and the ERP as one product, not two. Keeping that boundary clear makes changes after launch a lot less scary."
+      ]
+    },
+    {
+      "slug": "allure-dispatch",
+      "title": "Allure Dispatch",
+      "client": "Allure Digital",
+      "role": "Full-Stack Product Engineer",
+      "period": "2026 — Present",
+      "category": "Web",
+      "featured": true,
+      "image": "/images/allure-dispatch.png",
+      "screens": [
+        "/images/allure-dispatch.png",
+        "/projects/allure-dispatch/screen-2.png",
+        "/projects/allure-dispatch/screen-3.png"
+      ],
+      "summary": "An in-house dispatch platform — React on the front, Node/Express behind it, webhook integrations, and a React Native companion app currently in development.",
+      "outcome": "Live operations platform · mobile companion in progress",
+      "stack": [
+        "React",
+        "TypeScript",
+        "Node.js",
+        "Express",
+        "PostgreSQL",
+        "Redis",
+        "React Native",
+        "REST APIs"
+      ],
+      "links": {
+        "website": "https://dispatch.alluredigital.net"
+      },
+      "metrics": [
+        {
+          "label": "Surface",
+          "value": "Operations web"
+        },
+        {
+          "label": "Backend",
+          "value": "REST + webhooks"
+        },
+        {
+          "label": "Mobile",
+          "value": "In progress"
+        }
+      ],
+      "context": [
+        "Dispatch coordination needed one system connecting office decisions, real-world events, and what the dispatchers actually need to act on."
+      ],
+      "approach": [
+        "I built the web management side and got the service contracts stable first, then extended the same backend out toward a focused mobile companion."
+      ],
+      "build": [
+        {
+          "heading": "Operations surface",
+          "body": [
+            "Built the React platform around dispatch workflows and the state that matters for it — nothing more, nothing less."
+          ]
+        },
+        {
+          "heading": "Services and data",
+          "body": [
+            "Built Node.js/Express REST APIs on PostgreSQL and Redis, with webhook-driven integrations."
+          ]
+        },
+        {
+          "heading": "Mobile companion",
+          "body": [
+            "The React Native dispatcher app is being built against the same service and data contracts right now."
+          ]
+        }
+      ],
+      "results": [
+        "The web platform is live at dispatch.alluredigital.net.",
+        "The backend is built so the mobile companion can plug into it without a rewrite."
+      ],
+      "reflection": [
+        "Getting the service and data boundaries right early keeps web and mobile from drifting apart as scope grows."
+      ]
+    },
+    {
+      "slug": "quickworx",
+      "title": "QuickWorX",
+      "client": "Allure Digital",
+      "role": "Mobile Developer · ERP Feature Owner",
+      "period": "2026 — Present",
+      "category": "Mobile",
+      "featured": true,
+      "image": "/store/quickworx/screen-01.jpg",
+      "screens": [
+        "/store/quickworx/screen-01.jpg",
+        "/store/quickworx/screen-02.jpg",
+        "/store/quickworx/screen-03.jpg"
+      ],
+      "summary": "A published employee app that pulls attendance, leave, payroll, HR support, company news, and profile management into one place.",
+      "outcome": "Published on iOS and Android · maintained after launch",
+      "stack": [
+        "React Native",
+        "Expo",
+        "EAS Build",
+        "REST APIs",
+        "Firebase",
+        "Redux",
+        "Location",
+        "Push notifications"
+      ],
+      "links": {
+        "appstore": "https://apps.apple.com/us/app/quickworx/id6756424360",
+        "playstore": "https://play.google.com/store/apps/details?id=app.rork.quickworx"
+      },
+      "metrics": [
+        {
+          "label": "Distribution",
+          "value": "iOS + Android"
+        },
+        {
+          "label": "Coverage",
+          "value": "Employee operations"
+        },
+        {
+          "label": "Ownership",
+          "value": "Post-launch"
+        }
+      ],
+      "context": [
+        "Employees and HR were bouncing between too many disconnected tools for everyday stuff. Attendance, leave approvals, payroll info, support tickets, and company updates needed to feel like one app, not five."
+      ],
+      "approach": [
+        "I covered the whole employee lifecycle in React Native, and I still own the ERP side after launch.",
+        "The build ties together auth, location, API state, notifications, and store delivery into one release workflow I actually maintain."
+      ],
+      "build": [
+        {
+          "heading": "Employee self-service",
+          "body": [
+            "Built attendance, leave/WFH requests, payroll history, support tickets, news, events, and profile flows."
+          ]
+        },
+        {
+          "heading": "Device integrations",
+          "body": [
+            "Wired up location-aware attendance, authentication, push notifications, and consistent state across iOS and Android."
+          ]
+        },
+        {
+          "heading": "Release ownership",
+          "body": [
+            "Handled EAS builds, store submission, compliance, version updates, bug fixes, and ongoing production support."
+          ]
+        }
+      ],
+      "results": [
+        "Live on both the Apple App Store and Google Play.",
+        "Still getting ERP improvements, releases, and production support after launch."
+      ],
+      "reflection": [
+        "For an employee app, staying reliable after launch matters as much as the first release. Feedback from actual use is part of the loop, not a separate maintenance phase."
+      ]
+    },
+    {
+      "slug": "iyurek",
+      "title": "iYurek",
+      "client": "Freelance",
+      "role": "Scoped Architecture Contributor",
+      "period": "2024 — 2025",
+      "category": "Mobile",
+      "featured": true,
+      "image": "/store/iyurek/screen-01.png",
+      "screens": [
+        "/store/iyurek/screen-01.png",
+        "/store/iyurek/screen-02.png",
+        "/store/iyurek/screen-03.png",
+        "/store/iyurek/screen-04.png",
+        "/store/iyurek/screen-05.png",
+        "/store/iyurek/screen-06.png",
+        "/store/iyurek/screen-07.png",
+        "/store/iyurek/screen-08.png"
+      ],
+      "summary": "A published market-analysis app for stocks, forex, and crypto. My freelance scope was one thing: untangling tightly coupled logic into clearer service and module boundaries.",
+      "outcome": "Published iOS product · one focused architecture contribution",
+      "stack": [
+        "Architecture refactor",
+        "Service boundaries",
+        "Modular code",
+        "Production mobile app"
+      ],
+      "links": {
+        "appstore": "https://apps.apple.com/us/app/iyurek/id6502875896"
+      },
+      "metrics": [
+        {
+          "label": "Product",
+          "value": "Published"
+        },
+        {
+          "label": "Scope",
+          "value": "One feature"
+        },
+        {
+          "label": "Focus",
+          "value": "Architecture"
+        }
+      ],
+      "context": [
+        "Inside the feature I was assigned, the code was monolithic — hard to isolate, hard to maintain, hard to touch without breaking something unrelated."
+      ],
+      "approach": [
+        "I mapped out the feature's boundaries, pulled apart the responsibilities that had been jammed together, and reorganized it into focused modules."
+      ],
+      "build": [
+        {
+          "heading": "Boundary mapping",
+          "body": [
+            "Went through the existing feature and mapped its dependencies and responsibilities before touching the structure."
+          ]
+        },
+        {
+          "heading": "Modular refactor",
+          "body": [
+            "Moved logic behind clearer module and service boundaries while keeping behavior identical in the live app."
+          ]
+        },
+        {
+          "heading": "Scoped delivery",
+          "body": [
+            "Kept everything compatible with the existing published app, and kept my claim limited to the one feature I actually touched."
+          ]
+        }
+      ],
+      "results": [
+        "A real architecture and maintainability improvement, scoped to the assigned feature.",
+        "The app is still live on the App Store with cleaner boundaries in the area I worked on."
+      ],
+      "reflection": [
+        "A focused refactor can improve maintainability without changing the wider product. Clear service boundaries kept this contribution useful and limited to the assigned feature."
+      ]
+    }
+  ]
+}

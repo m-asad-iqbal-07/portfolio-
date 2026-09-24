@@ -1,3 +1,5 @@
+import { siteConfig } from "@/lib/site";
+import { PageJsonLd } from "@/components/seo/json-ld";
 ﻿import type { Metadata } from "next";
 import { credentials, values } from "@/content/data";
 import { pageMetadata } from "@/lib/seo";
@@ -13,15 +15,11 @@ export const metadata: Metadata = pageMetadata({
   path: "/about",
 });
 
-const valueIcons = [
-  "fi fi-rr-link-alt",
-  "fi fi-rr-rocket-lunch",
-  "fi fi-rr-bullseye-arrow",
-];
 
 export default function AboutPage() {
   return (
     <>
+      <PageJsonLd path="/about" />
       <PageHeader
         eyebrow="About"
         variant="about"
@@ -35,30 +33,15 @@ export default function AboutPage() {
 
       <Capabilities />
 
-      <section className="credentials-section">
-        <div className="route-section-head">
-          <span>Profile</span>
-          <h2>A little more.</h2>
-        </div>
-        <div className="credentials-grid credentials-grid-compact">
-          {credentials.filter((credential) => credential.label !== "Education").map((credential) => (
-            <article key={credential.label}>
-              <i className="fi fi-rr-badge-check" aria-hidden="true" />
-              <span>{credential.label}</span>
-              <p>{credential.value}</p>
-            </article>
-          ))}
-        </div>
+      <section className="about-facts" aria-labelledby="about-facts-heading">
+        <h2 id="about-facts-heading">A little more.</h2>
+        <dl>{credentials.filter(credential => credential.label !== "Education").map(credential => <div key={credential.label}>
+          <dt>{credential.label}</dt><dd>{credential.label === "Availability" ? siteConfig.availability : credential.value}</dd>
+        </div>)}</dl>
       </section>
-
-      <section className="values-section">
-        <span>Operating principles</span>
-        {values.map((value, index) => (
-          <p key={value}>
-            <i className={valueIcons[index]} aria-hidden="true" />
-            {value}
-          </p>
-        ))}
+      <section className="about-principles" aria-labelledby="principles-heading">
+        <h2 id="principles-heading">Operating<br />principles.</h2>
+        <div>{values.map(value => <article key={value}><p>{value}</p></article>)}</div>
       </section>
     </>
   );

@@ -1,5 +1,7 @@
 "use client";
 
+import { ContentIcon } from "@/components/ui/content-icon";
+import { siteConfig } from "@/lib/site";
 import Link from "next/link";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
@@ -11,7 +13,7 @@ const lead = "I'm Asad, a full-stack developer working across mobile, web, backe
 const bodyParagraphs = [
   "I've built warehouse inventory and scanning systems, employee ops apps, dispatch platforms, role-based mobile apps, real-time data apps, commerce, and some architecture cleanup work.",
   "Usual stack: React Native or React on the frontend, Node.js/Express on the backend, PostgreSQL, Redis, Firebase, or MongoDB for data.",
-  "Open to full-time roles, freelance work, and remote gigs.",
+  siteConfig.availability,
 ];
 
 export function AboutStory() {
@@ -21,24 +23,9 @@ export function AboutStory() {
     () => {
       if (prefersReducedMotion()) return;
 
-      gsap.utils.toArray<HTMLElement>(".reveal-text").forEach((block) => {
-        const words = block.querySelectorAll(".reveal-word");
-        gsap.fromTo(
-          words,
-          { opacity: 0.16, filter: "blur(3px)" },
-          {
-            opacity: 1,
-            filter: "blur(0px)",
-            ease: "none",
-            stagger: 0.04,
-            scrollTrigger: {
-              trigger: block,
-              start: "top 78%",
-              end: "bottom 48%",
-              scrub: 0.6,
-            },
-          },
-        );
+      gsap.utils.toArray<HTMLElement>(".reveal-text").forEach(block => {
+        gsap.from(block, { y: 18, opacity: .6, duration: .65, ease: "power3.out",
+          scrollTrigger: { trigger: block, start: "top 90%", once: true } });
       });
     },
     { scope: root },
@@ -57,7 +44,7 @@ export function AboutStory() {
         ))}
         <Link href="/contact">
           Contact
-          <i className="fi fi-rr-arrow-up-right" aria-hidden="true" />
+          <ContentIcon className="fi fi-rr-arrow-up-right" />
         </Link>
       </div>
     </section>

@@ -25,7 +25,7 @@ export const catalogProjects: CatalogProject[] = [
     description:
       "Built one focused email warm-up module to help sending domains build a healthier reputation and land in more inboxes.",
     contribution:
-      "One feature inside a bigger platform — not the whole product, and I'm not claiming it is.",
+      "Feature-level contribution: the email warm-up module within the wider Closely platform.",
     stack: ["Email warm-up", "Domain reputation", "Deliverability"],
     icon: "fi fi-rr-envelope-dot",
     screens: ["/projects/closely/screen-1.png", "/projects/closely/screen-2.png", "/projects/closely/screen-3.png"],

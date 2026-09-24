@@ -2,20 +2,19 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowUpRight, Github, Linkedin } from "lucide-react";
 import { navItems, siteConfig } from "@/lib/site";
+import { Brand } from "./brand";
 
-const navIcons = {
-  "/work": "fi fi-rr-briefcase",
-  "/services": "fi fi-rr-settings-sliders",
-  "/about": "fi fi-rr-user",
-  "/contact": "fi fi-rr-envelope",
-} as const;
+const links = [{ href: "/", label: "Home" }, ...navItems];
 
 export function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const toggle = useRef<HTMLButtonElement>(null);
+  const menu = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 28);
@@ -25,66 +24,57 @@ export function Nav() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const surfaces = Array.from(document.querySelectorAll<HTMLElement>("main, .site-footer"));
+    surfaces.forEach((surface) => { surface.inert = true; });
+    menu.current?.querySelector<HTMLAnchorElement>("a")?.focus();
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { setOpen(false); toggle.current?.focus(); }
+      if (event.key === "Tab") {
+        const elements = [toggle.current, ...Array.from(menu.current?.querySelectorAll<HTMLElement>("a, button") ?? [])].filter(Boolean) as HTMLElement[];
+        const first = elements[0], last = elements[elements.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+      }
+    };
+    const onResize = () => { if (window.innerWidth > 900) setOpen(false); };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("resize", onResize);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      surfaces.forEach((surface) => { surface.inert = false; });
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", onResize);
+    };
   }, [open]);
 
   useEffect(() => setOpen(false), [pathname]);
+  const active = (href: string) => href === "/" ? pathname === "/" : pathname.startsWith(href);
 
-  useEffect(() => {
-    if (!open) return;
-    const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open]);
-
-  return (
-    <>
-      <header className={"site-header " + (scrolled ? "is-scrolled" : "")}>
-        <Link href="/" className="site-wordmark" aria-label={siteConfig.name + " home"}>
-          {siteConfig.name}
-        </Link>
-
-        <nav className="site-nav" aria-label="Primary navigation">
-          {navItems.map((item) => (
-            <Link key={item.href} href={item.href} className={pathname.startsWith(item.href) ? "is-active" : ""}>
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
-        <Link href="/contact" className="nav-cta">
-          Contact
-          <i className="fi fi-rr-arrow-up-right" aria-hidden="true" />
-        </Link>
-
-        <button
-          className="nav-toggle"
-          type="button"
-          onClick={() => setOpen((value) => !value)}
-          aria-expanded={open}
-          aria-label={open ? "Close menu" : "Open menu"}
-        >
-          <i className={open ? "fi fi-rr-cross-small" : "fi fi-rr-menu-burger"} aria-hidden="true" />
-        </button>
-      </header>
-
-      {open ? (
-        <>
-          <div className="mobile-menu-backdrop" onClick={() => setOpen(false)} aria-hidden="true" />
-          <div className="mobile-menu">
-            <nav aria-label="Mobile navigation">
-              {navItems.map((item) => (
-                <Link key={item.href} href={item.href}>
-                  <i className={navIcons[item.href]} aria-hidden="true" />
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-            <a href={"mailto:" + siteConfig.email}>{siteConfig.email}</a>
-          </div>
-        </>
-      ) : null}
-    </>
-  );
+  return <>
+    <header className={`site-header${scrolled ? " is-scrolled" : ""}${open ? " menu-is-open" : ""}`}>
+      <Brand />
+      <nav className="site-nav" aria-label="Primary navigation">
+        {links.filter((item) => item.href !== "/contact").map((item) =>
+          <Link key={item.href} href={item.href} className={active(item.href) ? "is-active" : ""} aria-current={active(item.href) ? "page" : undefined}>
+            <span className="nav-label"><span>{item.label}</span><span aria-hidden="true">{item.label}</span></span>
+          </Link>)}
+      </nav>
+      <Link href="/contact" className="nav-cta">Let&apos;s talk <span className="cta-arrow"><ArrowUpRight size={17} /></span></Link>
+      <button ref={toggle} className={`nav-toggle${open ? " is-open" : ""}`} type="button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-controls="mobile-navigation" aria-label={open ? "Close menu" : "Open menu"}>
+        <span /><span />
+      </button>
+    </header>
+    {open && <div ref={menu} id="mobile-navigation" className="mobile-navigation" data-lenis-prevent>
+      <nav aria-label="Mobile navigation">
+        {links.map((item) => <Link key={item.href} href={item.href} onClick={() => setOpen(false)} aria-current={active(item.href) ? "page" : undefined}>{item.label}<ArrowUpRight /></Link>)}
+      </nav>
+      <div className="mobile-navigation-bottom"><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a><div>
+        <a href={siteConfig.socials.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={20} /></a>
+        <a href={siteConfig.socials.github} target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={20} /></a>
+      </div></div>
+    </div>}
+  </>;
 }

@@ -13,7 +13,7 @@ type RevealProps = {
 };
 
 /**
- * Reveal primitive — clipPath wipe + fade as the element enters the viewport.
+ * A restrained entrance from a readable default, played once.
  * Respects prefers-reduced-motion (renders fully visible, no animation).
  */
 export function Reveal({
@@ -31,24 +31,23 @@ export function Reveal({
       if (!el) return;
 
       if (prefersReducedMotion()) {
-        gsap.set(el, { opacity: 1, clipPath: "inset(0 0 0 0)" });
+        gsap.set(el, { opacity: 1, y: 0 });
         return;
       }
 
       gsap.fromTo(
         el,
-        { opacity: 0, clipPath: "inset(0 100% 0 0)", y: 24 },
+        { opacity: .75, y: 16 },
         {
           opacity: 1,
-          clipPath: "inset(0 0 0 0)",
           y: 0,
-          duration: 0.8,
+          duration: 0.55,
           delay,
           ease: "power3.out",
           scrollTrigger: {
             trigger: el,
             start: "top 88%",
-            toggleActions: "play none none reverse",
+            once: true,
           },
         },
       );
